@@ -1,0 +1,18 @@
+---
+driver_plugin: vagrant
+driver_config:
+  require_chef_omnibus: true
+
+platforms:
+  - name: ubuntu-12.04
+
+suites:
+  - name: slack
+    run_list: recipe[chatops_notify_tests::slack_notify]
+    attributes:
+  - name: hipchat
+    run_list: recipe[chatops_notify_tests::hipchat_notify]
+    attributes:
+  - name: custom
+    run_list: recipe[chatops_notify_tests::custom_notify]
+    attributes:
