@@ -11,7 +11,9 @@ Supports
 
 Usage
 -----
-Add cookbook as a dependncy in metadata.rb
+Add cookbook as a dependncy in metadata.rb  
+
+`depends 'chatops_notify'`
 
 
 #### `Slack`  
