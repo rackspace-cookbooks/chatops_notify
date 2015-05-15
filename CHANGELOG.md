@@ -3,9 +3,9 @@ chatops-notify CHANGELOG
 
 This file is used to list changes made in each version of the chatops-notify cookbook.
 
-0.1.0
+1.0.0
 -----
-- [Nielsen Pierce - Initial release of chatops-notify
+- [Nielsen Pierce] - Release 1.0.0 of chatops-notify
 
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.

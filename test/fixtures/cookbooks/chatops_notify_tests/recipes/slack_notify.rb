@@ -5,9 +5,10 @@
 #
 # Copyright 2012-2015, Rackspace
 
-slack_notify 'deployed Test' do
-  channel 'test'
+chatops_notify 'deployed test' do
+  chat_platform :slack
+  channel node['channel']
   username 'Chef'
-  webhook ''
-  message ''
+  webhook node['webhook']
+  message 'kitchen test'
 end
