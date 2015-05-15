@@ -11,15 +11,17 @@ class Chef
       end
 
       action :notify do
-        uri = URI.parse(new_resource.webhook)
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        initheader = { 'Content-Type' => 'application/json' }
-        req = Net::HTTP::Post.new(uri, initheader)
-        req.body = new_resource.body.to_json
-        response = http.request(req)
-        puts response
+        converge_by("Notify  #{new_resource.webhook} - #{new_resource}") do
+          uri = URI.parse(new_resource.webhook)
+          http = Net::HTTP.new(uri.host, uri.port)
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+          initheader = { 'Content-Type' => 'application/json' }
+          req = Net::HTTP::Post.new(uri, initheader)
+          req.body = new_resource.body.to_json
+          response = http.request(req)
+          puts response
+        end
       end
     end
   end
