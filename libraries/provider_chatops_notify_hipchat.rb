@@ -3,7 +3,8 @@ require_relative 'helpers'
 
 class Chef
   class Provider
-    class HipchatNotify < Chef::Provider::LWRPBase
+    class ChatopsNotifyHipchat < Chef::Provider::LWRPBase
+      provides :chatops_notify
       include Helpers::Http
       use_inline_resources if defined?(use_inline_resources)
 
@@ -20,6 +21,13 @@ class Chef
         converge_by("Notify Hipchat - #{new_resource}") do
           body = { color: new_resource.color, notify: new_resource.notify, message: "#{text}", message_format: new_resource.message_format }
           http_uri(body)
+        end
+      end
+
+      class << self
+        # supports the given resource and action (late binding)
+        def supports?(resource, _action)
+          resource.chat_platform == :hipchat
         end
       end
     end

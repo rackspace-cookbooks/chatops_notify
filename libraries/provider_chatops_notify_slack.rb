@@ -3,7 +3,8 @@ require_relative 'helpers'
 
 class Chef
   class Provider
-    class SlackNotify < Chef::Provider::LWRPBase
+    class ChatopsNotifySlack < Chef::Provider::LWRPBase
+      provides :chatops_notify
       include Helpers::Http
       use_inline_resources if defined?(use_inline_resources)
 
@@ -23,7 +24,13 @@ class Chef
           http_uri(body)
         end
       end
+
+      class << self
+        # supports the given resource and action (late binding)
+        def supports?(resource, _action)
+          resource.chat_platform == :slack
+        end
+      end
     end
   end
 end
-

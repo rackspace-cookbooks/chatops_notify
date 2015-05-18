@@ -5,7 +5,8 @@
 #
 # Copyright 2012-2015, Rackspace
 
-custom_notify 'deployed Test' do
+chatops_notify 'deployed Test' do
+  chat_platform :custom
   webhook ''
   body ''
 end

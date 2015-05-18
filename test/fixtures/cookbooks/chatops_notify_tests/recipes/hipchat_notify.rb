@@ -5,7 +5,8 @@
 #
 # Copyright 2012-2015, Rackspace
 
-hipchat_notify 'deployed Test' do
+chatops_notify 'deployed Test' do
+  chat_platform :hipchat
   webhook node['webhook']
   message 'kitchen test'
 end
