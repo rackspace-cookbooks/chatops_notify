@@ -1,9 +1,10 @@
 require 'chef/provider/lwrp_base'
-require 'net/http'
+require_relative 'helpers'
 
 class Chef
   class Provider
     class SlackNotify < Chef::Provider::LWRPBase
+      include Helpers::Http
       use_inline_resources if defined?(use_inline_resources)
 
       def whyrun_supported?
@@ -17,16 +18,12 @@ class Chef
           text = new_resource.message
         end
 
-        uri = URI.parse(new_resource.webhook)
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        initheader = { 'Content-Type' => 'application/json' }
-        req = Net::HTTP::Post.new(uri.path, initheader)
-        req.body = { channel: "##{new_resource.channel}", username: new_resource.username, text: "#{text}", icon_emoji: new_resource.icon_emoji }.to_json
-        response = http.request(req)
-        puts response
+        converge_by("Notify Slack - #{new_resource}") do
+          body = { channel: "##{new_resource.channel}", username: new_resource.username, text: "#{text}", icon_emoji: new_resource.icon_emoji }
+          http_uri(body)
+        end
       end
     end
   end
 end
+

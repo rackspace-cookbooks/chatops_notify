@@ -10,9 +10,9 @@ suites:
   - name: slack
     run_list: recipe[chatops_notify_tests::slack_notify]
     attributes:
+      webhook: <%= ENV['SLACK_WEBHOOK'] %>
+      channel: <%= ENV['SLACK_CHANNEL'] %>
   - name: hipchat
     run_list: recipe[chatops_notify_tests::hipchat_notify]
     attributes:
-  - name: custom
-    run_list: recipe[chatops_notify_tests::custom_notify]
-    attributes:
+      webhook: <%= ENV['HIPCHAT_WEBHOOK'] %>

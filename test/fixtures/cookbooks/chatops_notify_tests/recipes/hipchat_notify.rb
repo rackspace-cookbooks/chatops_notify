@@ -6,6 +6,6 @@
 # Copyright 2012-2015, Rackspace
 
 hipchat_notify 'deployed Test' do
-  webhook ''
-  message ''
+  webhook node['webhook']
+  message 'kitchen test'
 end

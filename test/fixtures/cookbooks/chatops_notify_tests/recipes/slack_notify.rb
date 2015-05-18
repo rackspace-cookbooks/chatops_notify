@@ -6,8 +6,9 @@
 # Copyright 2012-2015, Rackspace
 
 slack_notify 'deployed Test' do
-  channel 'test'
+  channel node['channel']
   username 'Chef'
-  webhook ''
-  message ''
+  webhook node['webhook']
+  message 'kitchen test'
 end
+
