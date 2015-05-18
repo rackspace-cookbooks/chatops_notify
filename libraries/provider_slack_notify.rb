@@ -1,5 +1,5 @@
 require 'chef/provider/lwrp_base'
-require_relative 'chatops'
+require_relative 'helpers'
 
 class Chef
   class Provider
@@ -26,3 +26,4 @@ class Chef
     end
   end
 end
+
