@@ -4,7 +4,7 @@ require_relative 'chatops'
 class Chef
   class Provider
     class SlackNotify < Chef::Provider::LWRPBase
-      include Chatops::Http
+      include Helpers::Http
       use_inline_resources if defined?(use_inline_resources)
 
       def whyrun_supported?
