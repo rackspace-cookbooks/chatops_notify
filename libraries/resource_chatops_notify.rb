@@ -9,7 +9,7 @@ class Chef
       default_action :notify
 
       # Common attributes
-      attribute :chat_platform, kind_of: Symbol, equal_to: [:slack, :hipchat, :custom], default: nil
+      attribute :chat_platform, kind_of: Symbol, equal_to: [:slack, :hipchat, :custom], required: true, default: nil
       attribute :webhook, kind_of: String, default: nil
       attribute :message, kind_of: String, default: nil
 
