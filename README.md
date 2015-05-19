@@ -15,9 +15,6 @@ Add cookbook as a dependncy in metadata.rb
 
 `depends 'chatops_notify'`
 
-`depends 'chatops_notify'`  
-
-
 #### `Slack`  
 
 #### Attribute parameters  
