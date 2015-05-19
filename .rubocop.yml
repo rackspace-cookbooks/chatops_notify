@@ -41,6 +41,9 @@ UnusedBlockArgument:
 Documentation:
   Enabled: false
 
+Metrics/AbcSize:
+  Enabled: false
+
 AllCops:
   Include:
     - '**/*.rb'
