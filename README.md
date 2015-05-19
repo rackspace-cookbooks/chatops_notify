@@ -28,12 +28,12 @@ Add cookbook as a dependncy in metadata.rb
 #### Example  
 
 ```ruby
-chatops_notify "Description" do
+chatops_notify 'Description' do
   chat_platform :slack
   channel 'test'
   username 'Chef'
   webhook 'https://slack.webhook.url'
-  message "My mesage that appears in Slack"
+  message 'My mesage that appears in Slack'
 end
 ```
 
@@ -47,10 +47,10 @@ end
 #### Example 
 
 ```ruby
-chatops_notify "Description" do
+chatops_notify 'Description' do
   chat_platform :hipchat
   webhook 'https://hipchat.webhook.url'
-  message "My mesage that appears in Hipchat"
+  message 'My mesage that appears in Hipchat'
 end
 ```
 
@@ -64,10 +64,10 @@ end
 #### Example 
 
 ```ruby
-chatops_notify "Description" do
+chatops_notify 'Description' do
   chat_platform :custom
   webhook 'https://custom.webhook.url'
-  body "payload expected by endpoint"
+  body 'payload expected by endpoint'
 end
 ```
 
