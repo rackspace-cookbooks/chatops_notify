@@ -19,7 +19,7 @@ class Chef
           text = new_resource.message
         end
 
-        converge_by("Notify Slack - #{new_resource}") do
+        converge_by("Notify Slack - #{new_resource} ") do
           body = { channel: "##{new_resource.channel}", username: new_resource.username, text: "#{text}", icon_emoji: new_resource.icon_emoji }
           http_uri(body)
         end

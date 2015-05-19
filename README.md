@@ -1,7 +1,7 @@
 chatops_notify Cookbook
 =======================
 
-This is a library cook that provides a resource to notify your favourite chatops client.
+This is a library cook that provides a resource to notify your favourite chatops platform.
 
 Supports
 ------------
@@ -12,6 +12,8 @@ Supports
 Usage
 -----
 Add cookbook as a dependncy in metadata.rb
+
+`depends 'chatops_notify'`  
 
 
 #### `Slack`  
@@ -27,7 +29,8 @@ Add cookbook as a dependncy in metadata.rb
 #### Example  
 
 ```ruby
-slack_notify "Description" do
+chatops_notify "Description" do
+  chat_platform :slack
   channel 'test'
   username 'Chef'
   webhook 'https://slack.webhook.url'
@@ -45,7 +48,8 @@ end
 #### Example 
 
 ```ruby
-hipchat_notify "Description" do
+chatops_notify "Description" do
+  chat_platform :hipchat
   webhook 'https://hipchat.webhook.url'
   message "My mesage that appears in Hipchat"
 end
@@ -61,7 +65,8 @@ end
 #### Example 
 
 ```ruby
-custom_notify "Description" do
+chatops_notify "Description" do
+  chat_platform :custom
   webhook 'https://custom.webhook.url'
   body "payload expected by endpoint"
 end

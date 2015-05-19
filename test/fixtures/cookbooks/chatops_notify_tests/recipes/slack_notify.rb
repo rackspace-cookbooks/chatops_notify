@@ -5,7 +5,7 @@
 #
 # Copyright 2012-2015, Rackspace
 
-chatops_notify 'deployed Test' do
+chatops_notify 'deployed test' do
   chat_platform :slack
   channel node['channel']
   username 'Chef'

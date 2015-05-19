@@ -13,7 +13,7 @@ class Chef
       end
 
       action :notify do
-        converge_by("Notify  #{new_resource.webhook} - #{new_resource}") do
+        converge_by("Notify  #{new_resource.webhook} - #{new_resource} ") do
           body = new_resource.body.to_json
           http_uri(body)
           req.body = new_resource.body.to_json

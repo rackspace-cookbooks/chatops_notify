@@ -7,6 +7,6 @@
 
 chatops_notify 'deployed Test' do
   chat_platform :custom
-  webhook ''
+  webhook node['webhook']
   body ''
 end
