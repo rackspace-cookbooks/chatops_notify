@@ -14,6 +14,7 @@ This cookbook focuses on providing a resource to send messages to your chatops p
 
 ## Out of scope
 
+This cookbook does not install the chat platform or any other components.  
 
 
 
