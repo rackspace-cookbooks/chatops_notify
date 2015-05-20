@@ -1,75 +1,75 @@
-# Encoding: utf-8
+require 'bundler/setup'
+require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
+require 'foodcritic'
+require 'kitchen'
 
-namespace :prepare do
-  desc 'Install ChefDK'
-  task :chefdk do
-    begin
-      gem 'chef-dk', '0.2.1'
-    rescue Gem::LoadError
-      puts 'ChefDK not found.  Installing it for you...'
-      sh %(wget -O /tmp/meez_chefdk.deb https://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/12.04/x86_64/chefdk_0.2.1-1_amd64.deb)
-      sh %(sudo dpkg -i /tmp/meez_chefdk.deb)
-    end
-  end
-
-  task :bundle do
-    if ENV['CI']
-      sh %(chef exec bundle install --path=.bundle --jobs 1 --retry 3 --verbose)
-    else
-      sh %(chef exec bundle install --path .bundle)
-    end
-  end
-
-  task :berks do
-    sh %(chef exec berks install)
-  end
-end
-
-desc 'Install required Gems and Cookbooks'
-task prepare: ['prepare:bundle', 'prepare:berks']
-
+# Style tests. Rubocop and Foodcritic
 namespace :style do
-  task :rubocop do
-    sh %(chef exec rubocop)
-  end
+  desc 'Run Ruby style checks'
+  RuboCop::RakeTask.new(:ruby)
 
-  task :foodcritic do
-    sh %(chef exec foodcritic .)
+  desc 'Run Chef style checks'
+  FoodCritic::Rake::LintTask.new(:chef) do |t|
+    t.options = { search_gems: true,
+                  tags: %w(~rackspace-support),
+                  fail_tags: %w(correctness,rackspace),
+                  tags: [
+                    '~RACK004'
+                  ]
+                }
   end
 end
 
 desc 'Run all style checks'
-task style: ['style:foodcritic', 'style:rubocop']
+task style: ['style:chef', 'style:ruby']
 
+# Rspec and ChefSpec
+desc 'Run ChefSpec unit tests'
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.rspec_opts = 'test/unit'
+end
+
+# Integration tests - kitchen.ci
+desc 'Run Test Kitchen'
 namespace :integration do
-  task :kitchen do
-    sh %(chef exec kitchen test)
+  Kitchen.logger = Kitchen.default_file_logger
+
+  desc 'Run kitchen test with Vagrant'
+  task :vagrant do
+    Kitchen::Config.new.instances.each do |instance|
+      instance.test(:always)
+    end
   end
-end
 
-task integration: ['integration:kitchen']
-
-namespace :unit do
-  task :chefspec do
-    sh %(chef exec rspec test/unit/spec)
+  %w(verify destroy).each do |t|
+    desc "Run kitchen #{t} with cloud plugins"
+    namespace :cloud do
+      task t do
+        @loader = Kitchen::Loader::YAML.new(local_config: '.kitchen.cloud.yml')
+        config = Kitchen::Config.new(loader: @loader)
+        concurrency = config.instances.size
+        queue = Queue.new
+        config.instances.each { |i| queue << i }
+        concurrency.times { queue << nil }
+        threads = []
+        concurrency.times do
+          threads << Thread.new do
+            while instance = queue.pop
+              instance.send(t)
+            end
+          end
+        end
+        threads.map(&:join)
+      end
+    end
   end
+
+  task cloud: ['cloud:verify', 'cloud:destroy']
 end
 
-desc 'Run all unit tests'
-task unit: ['unit:chefspec']
-task spec: ['unit']
+desc 'Run all tests on CI Platform'
+task ci: ['style', 'spec', 'integration:cloud']
 
-# Run all tests
-desc 'Run all tests'
-task test: ['style', 'unit', 'integration']
-
-# The default rake task should just run it all
-desc 'Install required Gems and Cookbook then run all tests'
-task default: ['prepare', 'test']
-
-begin
-  require 'kitchen/rake_tasks'
-  Kitchen::RakeTasks.new
-rescue LoadError
-  puts '>>>>> Kitchen gem not loaded, omitting tasks' unless ENV['CI']
-end
+# Default
+task default: ['style', 'spec', 'integration:vagrant']
