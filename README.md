@@ -1,3 +1,6 @@
+[![Circle CI](https://circleci.com/gh/rackspace-cookbooks/chatops_notify.svg?style=svg)](https://circleci.com/gh/rackspace-cookbooks/chatops_notify)  
+
+
 chatops_notify Cookbook
 =======================
 
