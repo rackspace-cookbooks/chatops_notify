@@ -7,8 +7,8 @@ provisioner:
 
 platforms:
   - name: centos-6.6
-
 suites:
+  - name: default
   - name: slack
     run_list: recipe[chatops_notify_tests::slack_notify]
     attributes:
