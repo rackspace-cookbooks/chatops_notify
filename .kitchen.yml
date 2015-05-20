@@ -6,7 +6,10 @@ provisioner:
   name: chef_zero
 
 platforms:
-  - name: centos-6.6
+  - name: centos-6.7
+  - name: ubuntu-12.04
+  - name: ubuntu-14.04
+
 suites:
   - name: slack
     run_list: recipe[chatops_notify_tests::slack_notify]

@@ -13,14 +13,14 @@ class Chef
       end
 
       action :notify do
-        if new_resource.message.nil?
-          text = "*Chef notification*: #{node.chef_environment} - #{node.name}"
-        else
-          text = new_resource.message
-        end
+        text = if new_resource.message.nil?
+                 "*Chef notification*: #{node.chef_environment} - #{node.name}"
+               else
+                 new_resource.message
+               end
 
         converge_by("Notify Slack - #{new_resource} ") do
-          body = { channel: "##{new_resource.channel}", username: new_resource.username, text: "#{text}", icon_emoji: new_resource.icon_emoji } # ~FC002
+          body = { channel: "##{new_resource.channel}", username: new_resource.username, text: text.to_s, icon_emoji: new_resource.icon_emoji } # ~FC002
           http_uri(body, new_resource.webhook)
         end
       end
