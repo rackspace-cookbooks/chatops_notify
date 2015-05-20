@@ -14,6 +14,9 @@ namespace :style do
     t.options = { search_gems: true,
                   tags: %w(~rackspace-support),
                   fail_tags: %w(correctness,rackspace)
+                  #tags: [
+                  #  '~RACK004'
+                  #]
                 }
   end
 end
