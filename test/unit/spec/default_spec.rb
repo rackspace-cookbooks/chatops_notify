@@ -1,14 +1,9 @@
-# Encoding: utf-8
-
 require_relative 'spec_helper'
 
-describe 'chatops-notify::default' do
-  before { stub_resources }
-  describe 'ubuntu' do
-    let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
+RSpec.describe 'provider_chatops_slack' do
+  before do
+  end
 
-    it 'writes some chefspec code' do
-      skip 'todo'
-    end
+  it 'do something' do
   end
 end

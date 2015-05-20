@@ -1,7 +1,18 @@
 chatops_notify Cookbook
 =======================
 
-This is a library cook that provides a resource to notify your favourite chatops platform.
+This is a library cook that provides a resource to notify your favourite chatops platform.  
+
+
+## In scope  
+
+This cookbook focuses on providing a resource to send messages to your chatops platform. See listed chat platform under 'Supports' section.  
+
+
+## Out of scope
+
+
+
 
 Supports
 ------------
@@ -15,9 +26,17 @@ Add cookbook as a dependncy in metadata.rb
 
 `depends 'chatops_notify'`
 
-#### `Slack`  
 
-#### Attribute parameters  
+## Resources
+
+
+### `Slack`  
+
+#### Actions
+
+* `:notify` - Default value for all
+
+#### Parameters  
 
 * `'channel'` The required Slack channel, default: nil
 * `'webhook'` The Slack webhook, default: nil
@@ -37,9 +56,9 @@ chatops_notify 'Description' do
 end
 ```
 
-#### `Hipchat`  
+### `Hipchat`  
 
-#### Attribute parameters  
+#### Parameters  
 
 * `'webhook'` The Hipchat webhook, default: nil
 * `'message'`  The message text to send to Hipchat, default: nil
@@ -54,9 +73,9 @@ chatops_notify 'Description' do
 end
 ```
 
-#### `Custom`  
+### `Custom`  
 
-#### Attribute parameters  
+#### Parameters  
 
 * `'webhook'` The custom endpoint to send message to, default: nil
 * `'body'`  The payload to send to the endpoint, default: nil
@@ -84,4 +103,4 @@ Contributing
 
 License and Authors
 -------------------
-Authors: Nielsen Pierce 
+Authors: Nielsen Pierce (nielsen.pierce@rackspace.co.uk)
