@@ -17,7 +17,6 @@ This cookbook focuses on providing a resource to send messages to your chatops p
 This cookbook does not install the chat platform or any other components.  
 
 
-
 Supports
 ------------
 * Slack
@@ -33,10 +32,10 @@ Add cookbook as a dependncy in metadata.rb
 
 ## Resources
 
-
 ### `Slack`  
 
 #### Actions
+
 
 * `:notify` - Default value for all
 

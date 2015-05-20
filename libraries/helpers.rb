@@ -1,7 +1,6 @@
 module Helpers
   module Http
     require 'net/http'
-    # include Chef::DSL::IncludeRecipe
     def http_uri(body, webhook)
       uri = URI.parse(webhook)
       http = Net::HTTP.new(uri.host, uri.port)
