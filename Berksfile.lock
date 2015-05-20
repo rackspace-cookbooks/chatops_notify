@@ -1,0 +1,11 @@
+DEPENDENCIES
+  chatops_notify
+    path: .
+    metadata: true
+  chatops_notify_tests
+    path: test/fixtures/cookbooks/chatops_notify_tests
+
+GRAPH
+  chatops_notify (1.0.0)
+  chatops_notify_tests (0.1.0)
+    chatops_notify (>= 0.0.0)

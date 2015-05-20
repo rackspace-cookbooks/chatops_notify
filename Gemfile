@@ -1,26 +1,36 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf', '> 3.1'
+group :lint do
+  gem 'foodcritic'
+  gem 'foodcritic-rackspace-rules'
+  gem 'rubocop'
+end
 
-# Uncomment these lines if you want to live on the Edge:
-#
-# group :development do
-#   gem "berkshelf", github: "berkshelf/berkshelf"
-#   gem "vagrant", github: "mitchellh/vagrant", tag: "v1.6.3"
-# end
-#
-# group :plugins do
-#   gem "vagrant-berkshelf", github: "berkshelf/vagrant-berkshelf"
-#   gem "vagrant-omnibus", github: "schisamo/vagrant-omnibus"
-# end
+group :unit do
+  gem 'berkshelf', '~> 3'
+  gem 'chefspec'
+  gem 'chef-sugar'
+end
 
-gem 'chef', '> 11'
-gem 'rake'
-gem 'rubocop'
-gem 'foodcritic'
-gem 'chefspec'
-gem 'test-kitchen'
-gem 'kitchen-vagrant'
-gem 'guard', '>= 2.6'
-gem 'guard-rubocop', '>= 1.1'
-gem 'guard-foodcritic', '>= 1.0.2'
+group :kitchen_common do
+  gem 'test-kitchen'
+end
+
+group :kitchen_vagrant do
+  gem 'kitchen-vagrant'
+  gem 'vagrant-wrapper'
+end
+
+group :kitchen_rackspace do
+  gem 'kitchen-rackspace'
+end
+
+group :development do
+  gem 'stove', '= 3.2.5'
+  gem 'growl'
+  gem 'rb-fsevent'
+  gem 'guard'
+  gem 'guard-kitchen'
+  gem 'guard-foodcritic'
+  gem 'guard-rubocop'
+end

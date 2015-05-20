@@ -19,8 +19,8 @@ class Chef
           text = new_resource.message
         end
         converge_by("Notify Hipchat - #{new_resource} ") do
-          body = { color: new_resource.color, notify: new_resource.notify, message: "#{text}", message_format: new_resource.message_format }
-          http_uri(body)
+          body = { color: new_resource.color, notify: new_resource.notify, message: "#{text}", message_format: new_resource.message_format } # ~FC002
+          http_uri(body, new_resource.webhook)
         end
       end
 
