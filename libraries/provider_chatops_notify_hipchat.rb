@@ -13,13 +13,14 @@ class Chef
       end
 
       action :notify do
-        if new_resource.message.nil?
-          text = "(chef) Chef Notification: #{node.chef_environment} - #{node.name}"
-        else
-          text = new_resource.message
-        end
+        text = if new_resource.message.nil?
+                 "(chef) Chef Notification: #{node.chef_environment} - #{node.name}"
+               else
+                 new_resource.message
+               end
+
         converge_by("Notify Hipchat - #{new_resource} ") do
-          body = { color: new_resource.color, notify: new_resource.notify, message: "#{text}", message_format: new_resource.message_format } # ~FC002
+          body = { color: new_resource.color, notify: new_resource.notify, message: text.to_s, message_format: new_resource.message_format } # ~FC002
           http_uri(body, new_resource.webhook)
         end
       end
